@@ -27,4 +27,6 @@ module.exports=function(context,answers){
     context.log(chalk.green('name: ', context.name));
     context.log(chalk.green('description: ', context.description));
     context.log(chalk.green('includeElementUI: ', context.includeElementUI));
+    context.log(chalk.green('ieVersion: ', context.ieVersion));
+    
 }
