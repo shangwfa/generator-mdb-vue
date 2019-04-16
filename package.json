@@ -1,0 +1,26 @@
+{
+  "name": "generator-mdb-vue",
+  "version": "1.0.0",
+  "description": "mdb generator for vue client side",
+  "keywords": [
+    "yeoman-generator",
+    "generator",
+    "mdb"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "gitlab",
+    "url": "https://gitlab.com/shangwfa/generator-mdb-vue.git"
+  },
+  "author": "shangwfa <shangwfa@gmail.com>",
+  "files": [
+    "generators"
+  ],
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/pengiundev/generator-jhipster-vuejs/issues"
+  },
+  "license": "MIT"
+}
