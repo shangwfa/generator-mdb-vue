@@ -16,11 +16,12 @@
   "files": [
     "generators"
   ],
-  "main": "index.js",
+  "main": "generators/app/src/index.js",
   "dependencies": {
     "chalk": "^2.4.2",
     "deep-extend": "^0.6.0",
-    "yeoman-generator": "^3.2.0"
+    "yeoman-generator": "^3.2.0",
+    "yosay": "^2.0.2"
   },
   "devDependencies": {},
   "bugs": {
