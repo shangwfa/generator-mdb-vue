@@ -17,10 +17,14 @@
     "generators"
   ],
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "deep-extend": "^0.6.0",
+    "yeoman-generator": "^3.2.0"
+  },
   "devDependencies": {},
   "bugs": {
-    "url": "https://github.com/pengiundev/generator-jhipster-vuejs/issues"
+    "url": "https://gitlab.com/shangwfa/generator-mdb-vue/issues"
   },
   "license": "MIT"
 }
