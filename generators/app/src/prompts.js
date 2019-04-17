@@ -28,6 +28,12 @@ module.exports=[
         default: ''
       },
       {
+        type: 'input',
+        name: 'version',
+        message: 'Version:',
+        default: '1.0.0'
+      },
+      {
         type: 'confirm',
         name: 'useRouterHistory',
         message: 'Would you like to use "history" mode of vue-router?',
