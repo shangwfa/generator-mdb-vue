@@ -1,0 +1,70 @@
+<template>
+    <div class="<%= kebabCaseName%>">
+        <%_ if (isDefaultSlot) { _%>
+        <slot></slot>
+        <%_ } _%>
+        <%_ if (isScopeSlot) { _%>
+            <slot v-bind="name"></slot>
+        <%_ } _%>
+    </div>
+</template>
+<script>
+    <%_ if (isMapToStore) { _%>
+    import {mapState} from 'vuex';
+    import MTYPES from "store/mutation-types.js";
+    <%_ } _%>
+    export default {
+        name: '<%= componentName%>',
+        components: {
+            
+        },
+        props:{
+            name:{
+                type:String,
+                default:""
+            }
+        },
+        data () {
+            return {
+                num:0
+            }
+        },
+        computed: {
+            <%_ if (isMapToStore) { _%>
+            ...mapState({
+                isLogin:state=>{
+                    return state.user.isLogin;
+                }
+            }),
+            <%_ } _%>
+            sum(){
+                return this.num+5;
+            }
+
+        },
+        created() {
+            
+        },
+        mounted() {
+            
+        },
+        methods: {
+            toLogin(){
+
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .<%= kebabCaseName%> {
+    }
+</style>
+
+<%_ if (isGlobalStyle) { _%>
+<style lang="scss">
+    .<%= kebabCaseName%> {
+    }
+</style>
+<%_ } _%>
+

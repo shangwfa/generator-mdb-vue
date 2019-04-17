@@ -4,13 +4,13 @@ const mkdirp = require('mkdirp-promise')
 
 
 module.exports= async function(context){
-    buildMkdir(context);
+    await buildMkdir(context);
     copyTemplates(context);
     extendPkgJson(context);
 }
 const buildMkdir= async (context)=>{
     let rootPath = context.destinationPath()+'/'+context.name;
-    context.log('buildMkdir',rootPath);
+    context.log('buildMkdir',context.destinationPath());
     await mkdirp(rootPath)
     context.destinationRoot(rootPath)
     context.rootPath = rootPath
@@ -25,7 +25,9 @@ const copyTemplates=(context)=>{
       );
 }
 const extendPkgJson=(context)=>{
-    const pkg = context.fs.readJSON(context.destinationPath('package.json'), {});
+
+    const pkg = context.fs.readJSON(context.templatePath('package.json'), {});
+    console.log('extendPkgJson',pkg);
     extend(pkg,{
         name:context.name,
         description:context.description,
