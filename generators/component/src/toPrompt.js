@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const _ = require('lodash');
 module.exports=function(context,answers){
     context.type = answers.type;
+    context.pageName = answers.pageName;
     context.name = answers.name;
     context.kebabCaseName =_.kebabCase(answers.name);
     context.isFunction = answers.isFunction;
@@ -12,6 +13,9 @@ module.exports=function(context,answers){
     context.slot = answers.slot;
 
     context.log(chalk.green('type: ', context.type));
+    if(context.type==='page'){
+        context.log(chalk.green('pageName: ', context.pageName));
+    }
     context.log(chalk.green('name: ', context.name));
     context.log(chalk.green('isFunction: ', context.isFunction));
     context.log(chalk.green('isMapToStore: ', context.isMapToStore));

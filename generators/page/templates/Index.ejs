@@ -1,11 +1,5 @@
 <template>
     <div class="<%= kebabCaseName%>">
-        <%_ if (isDefaultSlot) { _%>
-        <slot></slot>
-        <%_ } _%>
-        <%_ if (isScopeSlot) { _%>
-            <slot v-bind="name"></slot>
-        <%_ } _%>
     </div>
 </template>
 <script>
@@ -14,19 +8,14 @@
     import MTYPES from "store/mutation-types.js";
     <%_ } _%>
     export default {
-        name: '<%= componentName%>',
+        name: '<%= pageName%>Page',
         components: {
             
         },
-        props:{
-            name:{
-                type:String,
-                default:""
-            }
-        },
         data () {
             return {
-                num:0
+                num:0,
+                value:''
             }
         },
         watch: {

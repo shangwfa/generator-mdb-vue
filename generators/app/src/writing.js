@@ -1,6 +1,7 @@
 const { spawn } = require('child_process');
 const extend = require('deep-extend');
 const mkdirp = require('mkdirp-promise')
+const fs = require('fs-extra')
 
 
 module.exports= async function(context){
@@ -18,11 +19,18 @@ const buildMkdir= async (context)=>{
 }
 const copyTemplates=(context)=>{
     context.log('copyTemplates',context.destinationPath())
-    spawn('cp', ['-r', context.templatePath('./.vscode'),context.destinationPath()]);
+    copyDotFiles(context);
     context.fs.copy(
         context.templatePath(),
         context.destinationPath()
       );
+}
+const copyDotFiles=(context)=>{
+    const dotFilesName=['.eslintrc.js','.gitignore','.browserslistrc'];
+    spawn('cp', ['-r', context.templatePath('./.vscode'),context.destinationPath()]);
+    dotFilesName.map((fileName=>{
+        spawn('cp', ['-f', context.templatePath(`./${fileName}`),context.destinationPath()]);
+    }))
 }
 const extendPkgJson=(context)=>{
 

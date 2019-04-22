@@ -21,7 +21,7 @@ module.exports=[
     },
     {
       type: 'input',
-      name: 'page',
+      name: 'pageName',
       message: 'Specify a page name: ',
       default: 'defaultPage',
       when: answers => {

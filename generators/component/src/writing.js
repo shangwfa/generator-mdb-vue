@@ -11,7 +11,7 @@ const copyTemplates=(context)=>{
             destinationPath +=`business/${context.name}.vue`
         break
         case "page":
-            destinationPath +=`pages/${context.pageName}/${context.name}.vue`
+            destinationPath =`src/pages/${context.pageName}/${context.name}.vue`
         break
     }
     
