@@ -1,0 +1,73 @@
+import router from "./router";
+import store from "./store";
+import MTYPES from "./store/mutation-types";
+<%_ if (isPC) { _%>
+import { Message } from "element-ui";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
+NProgress.configure({ showSpinner: false });
+<%_ } _%>
+
+const whiteList = ["/login", "/auth-redirect"];
+
+router.beforeEach((to, from, next) => {
+  console.log("to", to,from);
+  <%_ if (isPC) { _%>
+  NProgress.start();
+  <%_ } _%>
+  if (store.state.user.isLogin) {
+
+    if (to.path === "/login") {
+      next({ path: "/" });
+      <%_ if (isPC) { _%>
+      NProgress.done();
+      <%_ } _%>
+    } else {
+      <%_ if (isPC) { _%>
+      if (store.state.user.roles.length === 0) {
+        store
+          .dispatch(MTYPES.GET_USER_INFO)
+          .then(res => {
+            const roles = res.data.roles;
+            console.log("roles", roles);
+            store
+              .dispatch(MTYPES.GENERATE_ROUTES, { roles })
+              .then(accessRoutes => {
+                console.log("accessRoutes", accessRoutes);
+                router.addRoutes(accessRoutes);
+                console.log("router", router);
+                next({ ...to, replace: true });
+              });
+          })
+          .catch(err => {
+            store.dispatch("FedLogOut").then(() => {
+              Message.error(err);
+              next({ path: "/" });
+            });
+          });
+      } else {
+        next();
+      }
+      <%_ } _%>
+      <%_ if (isMobile) { _%>
+        next();
+      <%_ } _%>
+    }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) {
+      next();
+    } else {
+      next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+      <%_ if (isPC) { _%>
+      NProgress.done();
+      <%_ } _%>
+    }
+  }
+});
+
+router.afterEach(() => {
+  <%_ if (isPC) { _%>
+  NProgress.done();
+  <%_ } _%>
+});

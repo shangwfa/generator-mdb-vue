@@ -1,0 +1,152 @@
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+@mixin scrollBar {
+  &::-webkit-scrollbar-track-piece {
+    background: #d3dce6;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #99a9bf;
+    border-radius: 20px;
+  }
+}
+
+@mixin relative {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+//设置圆角
+@mixin rounded-corners($value) {
+  border-radius: $value;
+}
+
+//设置渐变文案
+@mixin gradient-text($start-color, $end-color) {
+  background: -webkit-linear-gradient($start-color, $end-color);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+// 下三角
+@mixin down-triangle($color, $width) {
+  width: 0;
+  height: 0;
+  border-top: $width solid $color;
+  border-left: $width solid transparent;
+  border-right: $width solid transparent;
+}
+
+//上三角
+@mixin up-triangle($color, $width) {
+  width: 0;
+  height: 0;
+  border-bottom: $width solid $color;
+  border-left: $width solid transparent;
+  border-right: $width solid transparent;
+}
+//左三角
+@mixin up-triangle($color, $width) {
+  width: 0;
+  height: 0;
+  border-right: $width solid $color;
+  border-top: $width solid transparent;
+  border-bottom: $width solid transparent;
+}
+
+//右三角
+@mixin up-triangle($color, $width) {
+  width: 0;
+  height: 0;
+  border-left: $width solid $color;
+  border-top: $width solid transparent;
+  border-bottom: $width solid transparent;
+}
+
+//单行...
+@mixin truncate-text($width) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: $width;
+}
+//单行...
+@mixin truncate-maxwidth-text($width) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: $width;
+}
+// 多行...
+@mixin multi-truncate-text($lineNum, $line-height, $height) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lineNum;
+  line-height: $line-height;
+}
+
+@mixin card-animation {
+  transition: transform 0.5s;
+  &:hover {
+    transform: scale(1.04, 1.04);
+  }
+}
+@mixin right-line($height) {
+  &::after {
+    content: "";
+    position: absolute;
+    height: $height;
+    width: 1px;
+    background: #eee;
+    z-index: 1;
+    right: 0;
+  }
+}
+
+@mixin bottom-line($width, $left) {
+  &::after {
+    content: "";
+    position: absolute;
+    width: $width;
+    height: 1px;
+    background: #eee;
+    z-index: 1;
+    bottom: 0;
+    left: $left;
+  }
+}
+
+@mixin li-right-line($height) {
+  position: relative;
+  &:not(:last-child) {
+    @include right-line($height);
+  }
+}
+
+@mixin li-bottom-line($width, $left) {
+  position: relative;
+  &:not(:last-child) {
+    @include bottom-line($width, $left);
+  }
+}
+@mixin li-bottom-all-line($width, $left) {
+  position: relative;
+  @include bottom-line($width, $left);
+}
+
+@mixin circle-icon($diameter) {
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+}

@@ -1,0 +1,76 @@
+import axios from "axios";
+import qs from "qs";
+<%_ if (isPC) { _%>
+import { Message } from "element-ui";
+<%_ } _%>
+import path from "./path"
+
+const whiteList = [path.USER_LOGIN];
+const service = axios.create({
+  baseURL: "",
+  timeout: 15000
+});
+
+service.interceptors.request.use(
+  config => {
+    config.params = {
+      loginDevice: "1",
+      token: "39064a729828c1570e99"
+    };
+    const isWhiteList = whiteList.includes(config.url);
+    config.headers = {
+      "Content-Type": isWhiteList
+        ? "application/json"
+        : "application/x-www-form-urlencoded",
+      "Accept-Language": localStorage.getItem("language")
+    };
+
+    if (!isWhiteList) {
+      config.transformRequest = [data => qs.stringify(data)];
+    }
+    return config;
+  },
+  error => {
+    Promise.reject(error);
+  }
+);
+
+service.interceptors.response.use(
+  response => {
+    const res = response.data;
+    console.log("res", res);
+    if (res.retCode !== 1) {
+      <%_ if (isPC) { _%>
+      let isShowError = true;
+      <%_ } _%>
+      switch (res.retCode) {
+        case 0:
+          res.Message = "程序员在路上...";
+          break;
+      }
+      <%_ if (isPC) { _%>
+      isShowError &&
+        Message({
+          message: res.retMsg,
+          type: "error",
+          duration: 5 * 1000
+        });
+      <%_ } _%>
+      return Promise.reject(res);
+    } else {
+      return Promise.resolve(response.data);
+    }
+  },
+  error => Promise.reject(error)
+);
+
+const request = async (path, params) => {
+  const res = service({
+    url: path,
+    method: "post",
+    data: { ...params }
+  });
+  return res;
+};
+
+export default request;

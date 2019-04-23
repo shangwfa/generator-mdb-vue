@@ -1,0 +1,118 @@
+@import 'variables.scss';
+@import 'mixin.scss';
+
+.page {
+    min-width: 1180px;
+}
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.img-rounded {
+    @include rounded-corners(5px);
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+[role='button'] {
+    cursor: pointer;
+}
+
+::selection {
+    background: wheat;
+    color: black;
+}
+.custom-text-selection::selection {
+    background: deeppink;
+    color: white;
+}
+.unselectable {
+    user-select: none;
+}
+
+.flex-remain {
+    display: flex;
+    flex: 1;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-rh-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.flex-rh-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.flex-r-hend-v-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.flex-rh-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex-rv-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-ch-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.flex-cv-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.flex-chv-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-rh-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.flex-rhv-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-shadow {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
