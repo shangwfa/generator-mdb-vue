@@ -7,7 +7,6 @@ const fs = require('fs-extra')
 module.exports= async function(context){
     await buildMkdir(context);
     copyTemplates(context);
-    extendPkgJson(context);
 }
 const buildMkdir= async (context)=>{
     let rootPath = context.destinationPath()+'/'+context.name;
@@ -18,12 +17,70 @@ const buildMkdir= async (context)=>{
     context.log('buildMkdir',context.destinationPath())
 }
 const copyTemplates=(context)=>{
+    let params={
+        name:context.name,
+        description:context.description,
+        version:context.version,
+        isPC: context.isPC,
+        isMobile:context.isMobile,
+        isAdmin:context.isAdmin
+    }
     context.log('copyTemplates',context.destinationPath())
     copyDotFiles(context);
     context.fs.copy(
         context.templatePath(),
-        context.destinationPath()
+        context.destinationPath(),
+        {
+            globOptions: {
+                dot: true,
+                ignore: ['**/@selections/**'],
+                gitignore: false
+            }
+        }
       );
+    context.fs.copyTpl(
+        context.templatePath('@selections/package.ejs'),
+        context.destinationPath('./package.json'),
+        params
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/postcss.config.ejs'),
+        context.destinationPath('./postcss.config.js'),
+        params
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/main.ejs'),
+        context.destinationPath('./src/main.js'),
+        params
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/permission.ejs'),
+        context.destinationPath('./src/permission.js'),
+        params
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/api/index.ejs'),
+        context.destinationPath('./src/api/index.js'),
+        params
+    );
+    context.fs.copy(
+        context.isAdmin?
+            context.templatePath('./@selections/components/admin'):
+            context.templatePath('./@selections/components/common'),
+        context.destinationPath('./src/components')
+    );
+    context.fs.copy(
+        context.isAdmin?
+            context.templatePath('./@selections/pages/admin'):
+            context.templatePath('./@selections/pages/common'),
+        context.destinationPath('./src/pages')
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/router/index.ejs'),
+        context.destinationPath('./src/router/index.js'),
+        params
+    );
+
 }
 const copyDotFiles=(context)=>{
     const dotFilesName=['.eslintrc.js','.gitignore','.browserslistrc'];

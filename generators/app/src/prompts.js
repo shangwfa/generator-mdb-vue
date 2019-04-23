@@ -16,6 +16,15 @@ module.exports=[
       ]
     },
     {
+      type: 'confirm',
+      name: 'isAdmin',
+      message: 'Would you want to create a Admin project?',
+      default: false,
+      when: answers => {
+        return answers.platform === 'pc';
+      }
+    },
+    {
         type: 'input',
         name: 'name',
         message: 'Name of project:',
