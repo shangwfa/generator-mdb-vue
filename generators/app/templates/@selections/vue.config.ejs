@@ -1,5 +1,9 @@
 const path = require("path");
 const yargs = require("yargs");
+<%_ if (includePrerender) { _%>
+const PrerenderSPAPlugin = require("prerender-spa-plugin");
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+<%_ } _%>
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -24,13 +28,28 @@ module.exports = {
   lintOnSave: true,
   // eslint-disable-next-line no-unused-vars
   configureWebpack: config => {
-    let myConfig = {};
     if (process.env.NODE_ENV === "production") {
       console.log("为生产环境修改配置...");
+      <%_ if (includePrerender) { _%>
+        return {
+          plugins: [
+            new PrerenderSPAPlugin({
+              staticDir: path.join(__dirname, "dist"),
+              routes: ["/"],
+              renderer: new Renderer({
+                inject: {
+                  foo: "bar"
+                },
+                headless: false,
+                renderAfterDocumentEvent: "render-event"
+              })
+            })
+          ]
+        };
+      <%_ } _%>
     } else {
       console.log("为开发环境修改配置...");
     }
-    return myConfig;
   },
   chainWebpack: config => {
     config.resolve.alias

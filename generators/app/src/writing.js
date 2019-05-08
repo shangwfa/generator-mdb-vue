@@ -23,7 +23,8 @@ const copyTemplates=(context)=>{
         version:context.version,
         isPC: context.isPC,
         isMobile:context.isMobile,
-        isAdmin:context.isAdmin
+        isAdmin:context.isAdmin,
+        includePrerender:context.includePrerender
     }
     context.log('copyTemplates',context.destinationPath())
     copyDotFiles(context);
@@ -41,6 +42,11 @@ const copyTemplates=(context)=>{
     context.fs.copyTpl(
         context.templatePath('@selections/package.ejs'),
         context.destinationPath('./package.json'),
+        params
+    );
+    context.fs.copyTpl(
+        context.templatePath('@selections/vue.config.ejs'),
+        context.destinationPath('./vue.config.js'),
         params
     );
     context.fs.copyTpl(

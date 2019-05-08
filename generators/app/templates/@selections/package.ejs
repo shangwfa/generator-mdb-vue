@@ -53,6 +53,10 @@
     "postcss-aspect-ratio-mini": "^1.0.1",
     "postcss-write-svg": "^3.0.1"
     <%_ } _%>
+    <%_ if (includePrerender) { _%>
+      ,
+      "prerender-spa-plugin": "^3.4.0"
+      <%_ } _%>
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

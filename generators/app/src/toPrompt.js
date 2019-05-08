@@ -8,6 +8,7 @@ module.exports=function(context,answers){
     context.name = answers.name;
     context.description = answers.description;
     context.includeElementUI = answers.includeElementUI;
+    context.includePrerender = answers.includePrerender;
     context.ieVersion = answers.ieVersion;
     if (context.isPC) {
         context.ieVersionSupport = '';
@@ -29,6 +30,7 @@ module.exports=function(context,answers){
     context.log(chalk.green('name: ', context.name));
     context.log(chalk.green('description: ', context.description));
     context.log(chalk.green('includeElementUI: ', context.includeElementUI));
+    context.log(chalk.green('includePrerender: ', context.includePrerender));
     context.log(chalk.green('ieVersion: ', context.ieVersion));
     
 }

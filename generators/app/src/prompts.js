@@ -56,5 +56,11 @@ module.exports=[
         when: answers => {
           return answers.platform === 'pc';
         }
+      },
+      {
+        type: 'confirm',
+        name: 'includePrerender',
+        message: 'Would you like to use prerender-spa-plugin?',
+        default: false,
       }
 ];
