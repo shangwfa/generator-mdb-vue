@@ -16,15 +16,6 @@ module.exports=[
       ]
     },
     {
-      type: 'confirm',
-      name: 'isAdmin',
-      message: 'Would you want to create a Admin project?',
-      default: false,
-      when: answers => {
-        return answers.platform === 'pc';
-      }
-    },
-    {
         type: 'input',
         name: 'name',
         message: 'Name of project:',
@@ -50,33 +41,18 @@ module.exports=[
       },
       {
         type: 'confirm',
-        name: 'includeElementUI',
-        message: 'Would you like to include "element-ui" in your project?',
+        name: 'isAdmin',
+        message: 'Would you want to create a Admin project?',
         default: false,
         when: answers => {
           return answers.platform === 'pc';
         }
       },
-      // 支持的IE的版本
       {
-        type: 'list',
-        name: 'ieVersion',
-        message: 'Which "version of IE" would you like to support?',
-        choices: [
-          {
-            name: 'IE 9',
-            value: '9'
-          },
-          {
-            name: 'IE 10',
-            value: '10'
-          },
-          {
-            name: 'IE 11 or higher',
-            value: '11'
-          }
-        ],
-        default: '11',
+        type: 'confirm',
+        name: 'includeElementUI',
+        message: 'Would you like to include "element-ui" in your project?',
+        default: false,
         when: answers => {
           return answers.platform === 'pc';
         }
