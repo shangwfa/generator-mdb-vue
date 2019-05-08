@@ -18,7 +18,7 @@ module.exports = class extends Generator {
     }
 
     configuring(){
-        proxy.configuring();
+        proxy.configuring(this);
     }
 
     async writing() {

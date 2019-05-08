@@ -86,7 +86,12 @@ const copyTemplates=(context)=>{
         context.destinationPath('./src/router/index.js'),
         params
     );
-
+    initGit();
+}
+const initGit=()=>{
+    if (!fs.existsSync('.git')) {
+        shspawn('git init')
+    } 
 }
 const copyDotFiles=(context)=>{
     const dotFilesName=['.eslintrc.js','.gitignore','.browserslistrc'];
@@ -106,3 +111,6 @@ const extendPkgJson=(context)=>{
     })
     context.fs.writeJSON(context.destinationPath('package.json'), pkg);
 }
+const shspawn=(command)=> {
+    spawn('sh', ['-c', command], { stdio: 'inherit' });
+  } 

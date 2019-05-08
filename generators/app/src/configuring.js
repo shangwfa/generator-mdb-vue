@@ -1,7 +1,8 @@
 const fs = require('fs');
-const { spawn } = require('child_process');
-module.exports=function(){
-    if (!fs.existsSync('.git')) {
-        spawn('git', ['init']);
-      } 
+const { s } = require('child_process');
+function shspawn(command) {
+  spawn('sh', ['-c', command], { stdio: 'inherit' });
+} 
+module.exports=function(context){
+    context.log('rootPath',context.name); 
 }
