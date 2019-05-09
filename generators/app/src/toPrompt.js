@@ -7,23 +7,10 @@ module.exports=function(context,answers){
     context.isMobile = answers.platform ==='mobile';
     context.name = answers.name;
     context.description = answers.description;
-    context.includeElementUI = answers.includeElementUI;
+    context.includeElementUI = answers.isAdmin?true:answers.includeElementUI;
     context.includePrerender = answers.includePrerender;
+    context.isCDN = answers.isCDN;
     context.ieVersion = answers.ieVersion;
-    if (context.isPC) {
-        context.ieVersionSupport = '';
-        switch (context.ieVersion) {
-            case '9':
-                context.ieVersionSupport = 'ie >= 9';
-              break;
-            case '10':
-                context.ieVersionSupport = 'ie >= 10';
-              break;
-            default:
-                context.ieVersionSupport = 'ie >= 11';
-        }
-        context.log('ieVersionSupport:',context.ieVersionSupport);
-    }
 
     context.log(chalk.green('platform: ', context.platform));
     context.log(chalk.green('isAdmin: ', context.isAdmin));
@@ -31,6 +18,7 @@ module.exports=function(context,answers){
     context.log(chalk.green('description: ', context.description));
     context.log(chalk.green('includeElementUI: ', context.includeElementUI));
     context.log(chalk.green('includePrerender: ', context.includePrerender));
+    context.log(chalk.green('isCDN: ', context.isCDN));
     context.log(chalk.green('ieVersion: ', context.ieVersion));
     
 }

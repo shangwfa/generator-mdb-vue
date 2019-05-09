@@ -1,21 +1,6 @@
 const path = require('path');
 module.exports=[
     {
-      type: 'list',
-      name: 'platform',
-      message: 'Which platform would you like?',
-      choices: [
-        {
-          name: 'PC',
-          value: 'pc'
-        },
-        {
-          name: 'Mobile',
-          value: 'mobile'
-        }
-      ]
-    },
-    {
         type: 'input',
         name: 'name',
         message: 'Name of project:',
@@ -32,6 +17,21 @@ module.exports=[
         name: 'version',
         message: 'Version:',
         default: '1.0.0'
+      },
+      {
+        type: 'list',
+        name: 'platform',
+        message: 'Which platform would you like?',
+        choices: [
+          {
+            name: 'PC',
+            value: 'pc'
+          },
+          {
+            name: 'Mobile',
+            value: 'mobile'
+          }
+        ]
       },
       {
         type: 'confirm',
@@ -54,7 +54,7 @@ module.exports=[
         message: 'Would you like to include "element-ui" in your project?',
         default: false,
         when: answers => {
-          return answers.platform === 'pc';
+          return answers.platform === 'pc'&&(!answers.isAdmin);
         }
       },
       {

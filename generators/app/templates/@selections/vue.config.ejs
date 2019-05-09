@@ -24,29 +24,51 @@ const argv = yargs.argv;
 const target = proxyTarget[argv.env] || proxyTarget.dev;
 console.log("proxy ", target);
 
+const externals = {
+  vue: 'Vue',
+  'vue-router': 'VueRouter',
+  vuex: 'Vuex',
+  axios: 'axios',
+  'element-ui': 'ELEMENT'
+};
+const cdn = {
+  css: ['https://cdn.bootcss.com/element-ui/2.8.2/theme-chalk/index.css'],
+  js: [
+      'https://cdn.bootcss.com/vue/2.6.10/vue.min.js',
+      'https://cdn.bootcss.com/vue-router/3.0.6/vue-router.min.js',
+      'https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js',
+      'https://cdn.bootcss.com/axios/0.18.0/axios.min.js'
+      <%_ if (includeElementUI) { _%>
+      ,
+      'https://cdn.bootcss.com/element-ui/2.8.2/index.js'
+      <%_ } _%>
+  ]
+};
+
 module.exports = {
   lintOnSave: true,
   // eslint-disable-next-line no-unused-vars
   configureWebpack: config => {
     if (process.env.NODE_ENV === "production") {
       console.log("为生产环境修改配置...");
+      let myConfig={};
       <%_ if (includePrerender) { _%>
-        return {
-          plugins: [
-            new PrerenderSPAPlugin({
-              staticDir: path.join(__dirname, "dist"),
-              routes: ["/"],
-              renderer: new Renderer({
-                inject: {
-                  foo: "bar"
-                },
-                headless: false,
-                renderAfterDocumentEvent: "render-event"
-              })
+        myConfig.plugins=[
+          new PrerenderSPAPlugin({
+            staticDir: path.join(__dirname, "dist"),
+            routes: ["/"],
+            renderer: new Renderer({
+              inject: {
+                foo: "bar"
+              },
+              headless: false,
+              renderAfterDocumentEvent: "render-event"
             })
-          ]
-        };
+          })
+        ];
       <%_ } _%>
+      myConfig.externals=externals;
+      return myConfig;
     } else {
       console.log("为开发环境修改配置...");
     }
@@ -73,6 +95,12 @@ module.exports = {
         symbolId: "icon-[name]"
       })
       .end();
+    config.plugin('html').tap(args => {
+      if (process.env.NODE_ENV === 'production') {
+          args[0].cdn = cdn;
+      }
+      return args;
+    });
   },
   devServer: {
     open: process.platform === "darwin",

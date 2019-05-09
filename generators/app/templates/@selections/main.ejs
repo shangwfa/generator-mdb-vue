@@ -9,9 +9,7 @@ import "./icons";
 import "./errorLog";
 import "./permission";
 import mixin from "@/mixin/global";
-<%_ if (isPC) { _%>
 import "./plugins/element";
-<%_ } _%>
 import "./plugins/vueLazyLoad";
 
 import * as filters from "./filters";
@@ -28,7 +26,7 @@ new Vue({
   store,
   i18n,
   render: h => h(App)
-  <%_ if (isPC) { _%>
+  <%_ if (includePrerender) { _%>
     ,
     mounted() {
       document.dispatchEvent(new Event("render-event"));

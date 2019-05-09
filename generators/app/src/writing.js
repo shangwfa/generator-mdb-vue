@@ -22,9 +22,11 @@ const copyTemplates=(context)=>{
         description:context.description,
         version:context.version,
         isPC: context.isPC,
+        includeElementUI:context.includeElementUI,
         isMobile:context.isMobile,
         isAdmin:context.isAdmin,
-        includePrerender:context.includePrerender
+        includePrerender:context.includePrerender,
+        isCDN:context.isCDN
     }
     context.log('copyTemplates',context.destinationPath())
     copyDotFiles(context);
