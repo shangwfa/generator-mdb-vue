@@ -1,3 +1,4 @@
 module.exports = {
-  presets: ["@vue/app"]
+  presets: ["@vue/app"],
+  plugins: ["date-fns", "lodash"]
 };
