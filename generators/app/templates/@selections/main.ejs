@@ -9,7 +9,9 @@ import "./icons";
 import "./errorLog";
 import "./permission";
 import mixin from "@/mixin/global";
+<%_ if (isAdmin) { _%>
 import "./plugins/element";
+<%_ } _%>
 import "./plugins/vueLazyLoad";
 
 import * as filters from "./filters";

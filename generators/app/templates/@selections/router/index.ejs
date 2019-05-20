@@ -67,7 +67,11 @@ export const constantRoutes = [
 export const asyncRoutes = [];
 const createRouter = () =>
   new Router({
-    // mode: "history",
+    <%_ if (isHistory) { _%>
+    mode: "history",
+    <%_ } else { _%>
+    mode: "hash",
+    <%_ } _%>
     base: process.env.BASE_URL,
     routes: constantRoutes,
     scrollBehavior() {

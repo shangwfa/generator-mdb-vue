@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
+<%_ if (isAdmin) { _%>
 import enLocale from "element-ui/lib/locale/lang/en";
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
+<%_ } _%>
 import en from "./en";
 import zh from "./zh";
 
@@ -9,12 +11,18 @@ Vue.use(VueI18n);
 
 const messages = {
   en: {
-    ...en,
+    ...en
+    <%_ if (isAdmin) { _%>
+    ,
     ...enLocale
+    <%_ } _%>
   },
   zh: {
-    ...zh,
+    ...zh
+    <%_ if (isAdmin) { _%>
+    ,
     ...zhLocale
+    <%_ } _%>
   }
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "qs";
-<%_ if (isPC) { _%>
+<%_ if (isAdmin) { _%>
 import { Message } from "element-ui";
 <%_ } _%>
 import path from "./path"
@@ -40,7 +40,7 @@ service.interceptors.response.use(
     const res = response.data;
     console.log("res", res);
     if (res.retCode !== 1) {
-      <%_ if (isPC) { _%>
+      <%_ if (isAdmin) { _%>
       let isShowError = true;
       <%_ } _%>
       switch (res.retCode) {
@@ -48,7 +48,7 @@ service.interceptors.response.use(
           res.Message = "程序员在路上...";
           break;
       }
-      <%_ if (isPC) { _%>
+      <%_ if (isAdmin) { _%>
       isShowError &&
         Message({
           message: res.retMsg,

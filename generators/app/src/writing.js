@@ -22,6 +22,7 @@ const copyTemplates=(context)=>{
         description:context.description,
         version:context.version,
         isPC: context.isPC,
+        isHistory:context.isHistory,
         includeElementUI:context.includeElementUI,
         isMobile:context.isMobile,
         isAdmin:context.isAdmin,
@@ -71,6 +72,16 @@ const copyTemplates=(context)=>{
         context.destinationPath('./src/api/index.js'),
         params
     );
+    context.fs.copyTpl(
+        context.templatePath('@selections/lang/index.ejs'),
+        context.destinationPath('./src/lang/index.js'),
+        params
+    );
+    context.isAdmin&&context.fs.copyTpl(
+        context.templatePath('./@selections/plugins/element.js'),
+        context.destinationPath('./src/plugins/element.js'),
+        params
+        );
     context.fs.copy(
         context.isAdmin?
             context.templatePath('./@selections/components/admin'):
@@ -83,6 +94,7 @@ const copyTemplates=(context)=>{
             context.templatePath('./@selections/pages/common'),
         context.destinationPath('./src/pages')
     );
+    
     context.fs.copyTpl(
         context.templatePath('@selections/router/index.ejs'),
         context.destinationPath('./src/router/index.js'),

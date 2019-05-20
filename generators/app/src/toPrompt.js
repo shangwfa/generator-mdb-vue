@@ -3,6 +3,7 @@ const chalk = require('chalk');
 module.exports=function(context,answers){
     context.platform = answers.platform;
     context.isPC = answers.platform === 'pc';
+    context.isHistory = answers.useRouterHistory;
     context.isAdmin = answers.isAdmin;
     context.isMobile = answers.platform ==='mobile';
     context.name = answers.name;
@@ -13,6 +14,7 @@ module.exports=function(context,answers){
     context.ieVersion = answers.ieVersion;
 
     context.log(chalk.green('platform: ', context.platform));
+    context.log(chalk.green('isHistory: ', context.isHistory));
     context.log(chalk.green('isAdmin: ', context.isAdmin));
     context.log(chalk.green('name: ', context.name));
     context.log(chalk.green('description: ', context.description));

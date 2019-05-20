@@ -26,5 +26,11 @@
     htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
     <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
     <% } %>
+    <% if (htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.isElementUi) { %>
+      <script>
+        Vue.locale('en', ELEMENT.lang.en)
+        Vue.locale('zh-cn', ELEMENT.lang.zhCN)
+      </script>
+    <% } %>
   </body>
 </html>
